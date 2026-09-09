@@ -343,3 +343,10 @@ npm run lint     # ESLint check
 ---
 
 **CodeVista AI Phase 2** 
+## 👥 Team
+
+* Nanditha Srinivasan
+* Kolli Vaishnavi
+* M Shivani Rao
+
+Developed collaboratively as part of our academic major project.
