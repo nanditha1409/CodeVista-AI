@@ -342,4 +342,4 @@ npm run lint     # ESLint check
 
 ---
 
-**CodeVista AI Phase 2** — CMRIT Placement Project
+**CodeVista AI Phase 2** 
