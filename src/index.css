@@ -1,0 +1,383 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bg-primary: #0f0f23;
+    --color-bg-secondary: #1a1a2e;
+    --color-bg-tertiary: #16213e;
+    --color-accent-blue: #3b82f6;
+    --color-accent-green: #10b981;
+    --color-accent-red: #ef4444;
+    --color-code-bg: #1e1e2e;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-text-primary: #e2e8f0;
+    --color-text-muted: #94a3b8;
+    --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+    --text-meta: 11px;
+    --text-body: 14px;
+    --text-secondary: 15px;
+    --text-panel: 18px;
+    --text-app: 20px;
+    --leading-meta: 1.35;
+    --leading-body: 1.55;
+    --leading-heading: 1.3;
+    --spacing-tight: 4px;
+    --spacing-control: 8px;
+    --spacing-content: 12px;
+    --spacing-section: 16px;
+    --spacing-region: 24px;
+    --spacing-page: 32px;
+    --animate-pulse-bar: pulse-bar 1.5s ease-in-out infinite;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f23;
+    color: #e2e8f0;
+    font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Shared interaction and surface rules keep dense developer UI controls coherent. */
+:focus-visible {
+    outline: 2px solid rgba(96, 165, 250, 0.9);
+    outline-offset: 2px;
+}
+
+.cv-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-body);
+    line-height: 1.25;
+    font-weight: 500;
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+.cv-button-primary { background: #2563eb; border: 1px solid rgba(96, 165, 250, .5); color: white; }
+.cv-button-primary:hover { background: #3b82f6; }
+.cv-button-secondary { background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .1); color: rgba(255,255,255,.72); }
+.cv-button-secondary:hover { background: rgba(255,255,255,.1); color: rgba(255,255,255,.95); }
+.cv-button-ghost { color: rgba(255,255,255,.5); }
+.cv-button-ghost:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.9); }
+.cv-toolbar { border: 1px solid rgba(255, 255, 255, .08); background: rgba(255, 255, 255, .035); border-radius: .5rem; }
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.shiki {
+    background: #1e1e2e !important;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+}
+.shiki code {
+    background: transparent !important;
+}
+.code-container {
+    min-height: 100%;
+}
+.code-container .shiki {
+    min-height: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+.code-container.wrap .shiki {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.code-container:not(.wrap) .shiki {
+    white-space: pre;
+}
+.code-container.with-line-numbers .shiki {
+    padding-left: 0;
+    counter-reset: code-line;
+}
+.code-container.with-line-numbers .line {
+    counter-increment: code-line;
+    display: inline-block;
+    min-width: 100%;
+}
+.code-container.with-line-numbers .line::before {
+    content: counter(code-line);
+    display: inline-block;
+    width: 3.5rem;
+    padding-right: 1rem;
+    text-align: right;
+    color: rgba(148, 163, 184, 0.4);
+    user-select: none;
+}
+
+@keyframes pulse-bar {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(-8px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+.animate-slide-in {
+    animation: slide-in 0.15s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+}
+
+/* ── Mermaid / UML diagram polish ─────────────────────────────────────────── */
+.uml-svg-container svg {
+    max-width: 100%;
+    height: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
+
+/* Subgraph cluster labels */
+.uml-svg-container .cluster-label {
+    fill: #a0a0c0 !important;
+    font-size: 12px !important;
+}
+
+/* Cluster (subgraph) backgrounds */
+.uml-svg-container .cluster rect {
+    fill: #1a1a2e !important;
+    stroke: #4a4a6a !important;
+    stroke-width: 1.5px !important;
+    rx: 6px;
+}
+
+/* Node rectangles */
+.uml-svg-container .node rect,
+.uml-svg-container .node circle,
+.uml-svg-container .node ellipse,
+.uml-svg-container .node polygon {
+    fill: #1a2744 !important;
+    stroke: #3b6fd4 !important;
+    stroke-width: 1.5px !important;
+}
+
+/* Node text */
+.uml-svg-container .node .label {
+    color: #93c5fd !important;
+    fill: #93c5fd !important;
+}
+
+/* Edge lines */
+.uml-svg-container .edgePath path {
+    stroke: #4a5568 !important;
+    stroke-width: 1.5px !important;
+}
+
+/* Edge arrow heads */
+.uml-svg-container .edgePath marker path {
+    fill: #4a5568 !important;
+    stroke: none !important;
+}
+
+.what-if-visual-maps .uml-svg-container .node.activeNode rect,
+.what-if-visual-maps .uml-svg-container .node.changed rect,
+.what-if-visual-maps .uml-svg-container .node.activeNode polygon,
+.what-if-visual-maps .uml-svg-container .node.changed polygon {
+    fill: #2e1065 !important;
+    stroke: #c084fc !important;
+    filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.45));
+    animation: what-if-glow 1.8s ease-in-out infinite;
+}
+
+.what-if-visual-maps .uml-svg-container .node.upstreamNode rect,
+.what-if-visual-maps .uml-svg-container .node.risky rect,
+.what-if-visual-maps .uml-svg-container .node.upstreamNode polygon,
+.what-if-visual-maps .uml-svg-container .node.risky polygon {
+    fill: #422006 !important;
+    stroke: #facc15 !important;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.28));
+}
+
+.what-if-visual-maps .uml-svg-container .node.downstreamNode rect,
+.what-if-visual-maps .uml-svg-container .node.failure rect,
+.what-if-visual-maps .uml-svg-container .node.downstreamNode polygon,
+.what-if-visual-maps .uml-svg-container .node.failure polygon {
+    fill: #450a0a !important;
+    stroke: #ef4444 !important;
+    filter: drop-shadow(0 0 9px rgba(239, 68, 68, 0.34));
+}
+
+.what-if-visual-maps .uml-svg-container .node.stable rect,
+.what-if-visual-maps .uml-svg-container .node.stable polygon {
+    fill: #052e1a !important;
+    stroke: #22c55e !important;
+}
+
+.what-if-visual-maps .uml-svg-container .edgePath path {
+    transition:
+        stroke 0.2s ease,
+        stroke-width 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.what-if-pulse {
+    animation: what-if-glow 1.8s ease-in-out infinite;
+}
+
+.planner-glow {
+    box-shadow:
+        0 0 0 1px rgba(34, 211, 238, 0.02),
+        0 14px 40px rgba(8, 47, 73, 0.18);
+}
+
+.planner-diagram-stack .uml-svg-container .node.changed rect,
+.planner-diagram-stack .uml-svg-container .node.changed polygon,
+.planner-diagram-stack .uml-svg-container .node.changed circle,
+.planner-diagram-stack .uml-svg-container .node.changed ellipse {
+    fill: #083344 !important;
+    stroke: #22d3ee !important;
+    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.38));
+    animation: planner-node-pulse 2s ease-in-out infinite;
+}
+
+.planner-diagram-stack .uml-svg-container .node.risky rect,
+.planner-diagram-stack .uml-svg-container .node.risky polygon,
+.planner-diagram-stack .uml-svg-container .node.risky circle,
+.planner-diagram-stack .uml-svg-container .node.risky ellipse {
+    fill: #422006 !important;
+    stroke: #facc15 !important;
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.32));
+}
+
+.planner-diagram-stack .uml-svg-container .node.failure rect,
+.planner-diagram-stack .uml-svg-container .node.failure polygon,
+.planner-diagram-stack .uml-svg-container .node.failure circle,
+.planner-diagram-stack .uml-svg-container .node.failure ellipse {
+    fill: #450a0a !important;
+    stroke: #ef4444 !important;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.36));
+}
+
+.planner-diagram-stack .uml-svg-container .node.stable rect,
+.planner-diagram-stack .uml-svg-container .node.stable polygon,
+.planner-diagram-stack .uml-svg-container .node.stable circle,
+.planner-diagram-stack .uml-svg-container .node.stable ellipse {
+    fill: #052e1a !important;
+    stroke: #22c55e !important;
+}
+
+@keyframes planner-node-pulse {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes what-if-glow {
+    0%,
+    100% {
+        opacity: 0.78;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Edge labels */
+.uml-svg-container .edgeLabel {
+    background-color: #0d0d1a !important;
+    color: #6b7280 !important;
+}
+
+/* Mermaid diagram root background */
+.uml-svg-container svg > rect:first-child {
+    fill: transparent !important;
+}
+
+/* ── Cytoscape container ───────────────────────────────────────────────────── */
+canvas {
+    outline: none;
+}
+
+.dependency-graph-canvas.is-node-hovering {
+    cursor: pointer;
+}
+
+ctx-menu.codevista-context-menu,
+.codevista-context-menu,
+.cy-context-menus-cxt-menu {
+    min-width: 150px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.98) !important;
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    z-index: 50;
+}
+
+ctx-menu-item.codevista-context-menu-item,
+.codevista-context-menu-item,
+.cy-context-menus-cxt-menuitem {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 6px;
+    appearance: none;
+    background: transparent !important;
+    color: rgba(226, 232, 240, 0.82) !important;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    text-align: left;
+    cursor: pointer;
+}
+
+ctx-menu-item.codevista-context-menu-item:hover,
+ctx-menu-item.codevista-context-menu-item:focus-visible,
+.codevista-context-menu-item:hover,
+.codevista-context-menu-item:focus-visible,
+.cy-context-menus-cxt-menuitem:hover,
+.cy-context-menus-cxt-menuitem:focus-visible {
+    background: rgba(59, 130, 246, 0.16) !important;
+    color: #ffffff !important;
+    outline: none;
+}

@@ -1,0 +1,48 @@
+{
+  "name": "codevista-ai",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test:imports": "node --experimental-strip-types tests/astParser.test.ts",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "cytoscape": "^3.33.1",
+    "cytoscape-context-menus": "^4.2.1",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.383.0",
+    "mermaid": "^11.13.0",
+    "react": "^18.3.1",
+    "react-arborist": "^3.4.3",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^15.0.0",
+    "react-router-dom": "^6.26.0",
+    "shiki": "^4.0.2",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/cytoscape": "^3.21.9",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "globals": "^17.4.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.57.0",
+    "vite": "^7.0.0",
+    "vite-plugin-pwa": "^1.2.0"
+  }
+}
