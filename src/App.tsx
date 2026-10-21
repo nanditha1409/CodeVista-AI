@@ -28,12 +28,13 @@ import { DependenciesPanel } from "./components/DependenciesPanel";
 import { ExecFlowPanel } from "./components/ExecFlowPanel";
 import { WhatIfPanel } from "./components/WhatIfPanel";
 import { ChangePlannerPanel } from "./components/ChangePlannerPanel";
+import { LandingPage } from "./components/LandingPage";
 import { useFileStore } from "./stores/fileStore";
 import { useAnalysisStore } from "./stores/analysisStore";
 import type { MainTab } from "./types";
 
 const TAB_PATHS: Record<MainTab, string> = {
-  files: "/",
+  files: "/workspace",
   architecture: "/architecture",
   dependencies: "/dependencies",
   "exec-flow": "/exec-flow",
@@ -359,7 +360,7 @@ function ToolPageLayout({ tab, children }: { tab: Exclude<MainTab, "files">; chi
         {repoInfo && <span className="min-w-0 truncate text-xs text-white/45">{repoInfo.owner ? `${repoInfo.owner}/` : ""}{repoInfo.repo}{repoInfo.branch ? ` · ${repoInfo.branch}` : ""}</span>}
         <span className="hidden h-4 w-px bg-white/10 sm:block" />
         <h1 className="text-[16px] font-semibold text-white/85">{TOOL_TITLES[tab]}</h1>
-        <div className="ml-auto flex items-center gap-2"><AnalyzeButton /><button onClick={() => navigate("/")} className="cv-button cv-button-ghost text-xs">← Back to workspace</button></div>
+        <div className="ml-auto flex items-center gap-2"><AnalyzeButton /><button onClick={() => navigate("/workspace")} className="cv-button cv-button-ghost text-xs">← Back to workspace</button></div>
       </header>
       {(tab === "architecture" || tab === "change-planner") && <OllamaNotice />}
       <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
@@ -413,8 +414,9 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<div className="flex flex-col h-screen overflow-hidden bg-[#0F0F23] text-white"><Header /><div className="flex flex-1 overflow-hidden"><Sidebar width={sidebarWidth} collapsed={sidebarCollapsed} onResize={setSidebarWidth} onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)} /><WorkspacePane /></div></div>} />
-      <Route path="/files" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/workspace" element={<div className="flex flex-col h-screen overflow-hidden bg-[#0F0F23] text-white"><Header /><div className="flex flex-1 overflow-hidden"><Sidebar width={sidebarWidth} collapsed={sidebarCollapsed} onResize={setSidebarWidth} onToggle={() => setSidebarCollapsed((collapsed) => !collapsed)} /><WorkspacePane /></div></div>} />
+      <Route path="/files" element={<Navigate to="/workspace" replace />} />
       <Route path="/architecture" element={<ToolPageLayout tab="architecture"><ArchitecturePanel /></ToolPageLayout>} />
       <Route path="/dependencies" element={<ToolPageLayout tab="dependencies"><DependenciesPanel /></ToolPageLayout>} />
       <Route path="/exec-flow" element={<ToolPageLayout tab="exec-flow"><ExecFlowPanel /></ToolPageLayout>} />
